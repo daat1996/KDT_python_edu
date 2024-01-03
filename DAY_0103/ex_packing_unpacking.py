@@ -26,3 +26,6 @@ job = "학생"
 # 튜플을 언팩킹으로 생성 가능
 age1, name1, job1 = 12, "Hong", "학생"
 info = (12, "Hong", '학생')
+
+age2, name2, job2 = info
+print(age2, name2, job2)
