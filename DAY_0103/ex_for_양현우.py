@@ -218,9 +218,15 @@ i1, i2 = map(int, input().split())
 list1 = []
 for a in range(i1,i2+1):
     list1.append(2**a)
+list1[1:len(list1)-2] = list1[2:len(list1)-3]
+
+# list1.pop(1)
+# list1.pop(-2)
 print(list1)
 
 # comprehension 사용
 i1, i2 = map(int, input().split())
 list1 = [2**a for a in range(i1, i2+1)]
+list1.pop(1)
+list1.pop(-2)
 print(list1)
