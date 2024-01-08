@@ -42,8 +42,9 @@ def bombZero(a,b):                  # 4. 0찾고 연쇄 폭발 리턴
     for alph in range(-1, 2):
         for bett in range(-1, 2):
             mat1[a-alph][b-bett] = answ[a-alph][b-bett]
-            if alph and bett:
+            if alph!=0 or bett!=0:
                 if answ[a-alph][b-bett] == '0':
+                    answ[a - alph][b - bett] = '□'
                     bombZero(a-alph, b-bett)
     return mat1
 
