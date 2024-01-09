@@ -166,6 +166,7 @@ while True:
         makeQuiz(mat1)
         if countMine(answ) == countGround(mat1) or countMine(answ) == countMine(mat1):
             print('Game Clear!')
+            key1 = 0
             break
         else:
             print(f'지뢰 갯수 : {countMine(answ)}')
