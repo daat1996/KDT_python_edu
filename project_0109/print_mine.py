@@ -1,4 +1,4 @@
-from random import randint, sample
+from random import randint
 from copy import deepcopy
 from time import sleep
 
