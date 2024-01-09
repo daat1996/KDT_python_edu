@@ -10,3 +10,15 @@ for b in range(9):
             print('*', end=''if c<8 else '\n')
         else:
             print('0', end=''if c<8 else '\n')
+
+print(ord('１'))
+print(ord('０'))
+print(ord('２'))
+print(ord("⬤"))
+print(ord("⬜"))
+print(ord("⬛"))
+print('⬛')
+print('⬜')
+print('██')
+print('▏▕')
+print('①')
