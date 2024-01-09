@@ -14,6 +14,8 @@ for b in range(9):
 print(ord('１'))
 print(ord('０'))
 print(ord('２'))
+print(ord('①'))
+print(ord('ⓞ'))
 print(ord("⬤"))
 print(ord("⬜"))
 print(ord("⬛"))
