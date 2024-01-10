@@ -78,15 +78,22 @@ def countMine(mat0):                # 5. 해답지의 지뢰 카운트(전체)
 def countGround(mat0):              # 6. 문제지의 지뢰 카운트(현재)
     groundNum = 0
     for nk in mat0:
-        groundNum += nk.count(c)
+        groundNum += nk.count('██')
+    return groundNum
 
+
+def printQuiz(mat0):
+    for a in range(1,10):
+        for b in range(1,10):
+            mat0[a][b] = c
+    return mat0
 
 def manual():                       # 7. 시작 메뉴얼
     print("*" * 30)
     print("*" * 30)
     print("[지뢰 찾기]")
     print("*" * 30)
-    print("0. 게임방법")
+    print("0. 게임방법                 **")
     print("1. 쉬움                     **")
     print("2. 중간                     **")
     print("3. 딱딱한                   **")
@@ -153,16 +160,18 @@ while True:
 
 
 # 4. 문제지 출력
+    printQuiz(mat1)
 
-    for a in range(1,10):
-        for b in range(1,10):
-            mat1[a][b] = c
 
 
 
     while key1==2:
         print()
         makeQuiz1(mat1)
+
+        # print(f'남은 지뢰: {countMine(answ)}')
+        # print(f'남은 땅: {countGround(mat1)}')
+
         if countMine(answ) == countGround(mat1) or countMine(answ) == countMine(mat1):
             print('Game Clear!')
             key1 = 0
