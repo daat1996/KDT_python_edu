@@ -47,6 +47,8 @@ def makeAnswer(mat1):           # 3. 해답지 설정
 
 
 def bombZero(a,b):                  # 4. 0찾고 연쇄 폭발 리턴
+    global mat1
+    global answ
     for alph in range(-1, 2):
         for bett in range(-1, 2):
             mat1[a-alph][b-bett] = answ[a-alph][b-bett]
@@ -85,6 +87,7 @@ def countGround(mat0):              # 6. 문제지의 지뢰 카운트(현재)
 def printQuiz(mat0):
     for a in range(1,10):
         for b in range(1,10):
+            global c
             mat0[a][b] = c
     return mat0
 
@@ -118,12 +121,95 @@ def correct(listX):
     else:
         return False
 
+def manualList(press):
+    global key1
+    if press == '0':
+        sleep(0.5)
+        print('세로축, 가로축 순서로 원하는 좌표를 입력하여')
+        sleep(0.5)
+        print('지뢰가 아닌 땅을 찾으세요!')
+        sleep(1)
+
+    elif press == '1':
+        print()
+        print("게임시작!")
+        sleep(1)
+        key1 = 2
+    elif press == '2' or press == '3':
+        print("정식판을 구매해주세요")
+        print()
+    elif press == 'q' or press == 'Q':
+        print("게임을 종료합니다.")
+        sleep(1)
+        key1 = 0
+    elif press == 'r' or press == 'R':
+        print('다시 시작합니다')
+        sleep(1)
+        print()
+    else:
+        print("해당하는 메뉴는 존재하지 않습니다.")
+        sleep(0.5)
+
+
+# def theGame():
+#     global key1
+#     while key1==2:
+#         print()
+#         makeQuiz1(mat1)
+#
+#         # print(f'남은 지뢰: {countMine(answ)}')
+#         # print(f'남은 땅: {countGround(mat1)}')
+#
+#         if countMine(answ) == countGround(mat1) or countMine(answ) == countMine(mat1):
+#             print('Game Clear!')
+#             key1 = 0
+#
+#         else:
+#             print(f'지뢰 갯수 : {countMine(answ)}')
+#             rad1 = input('q(종료) / s(저장 후 메뉴로 돌아가기) / r(게임리셋)\n좌표 입력(2번째 줄 8번째 칸 = 2 8) : ')
+#             if rad1 == 'q' or rad1 == 'Q':
+#                 print('게임을 종료합니다.')
+#                 key1 = 0
+#
+#             elif rad1 == 's' or rad1 == 'S':
+#                 saveMine(answ)
+#                 print('저장중입니다.')
+#                 sleep(1)
+#                 print('저장중입니다..')
+#                 sleep(1)
+#                 print('메뉴로 돌아갑니다.')
+#                 key1 = 1
+#             else:
+#                 rad2 = rad1.split()
+#                 if correct(rad2):
+#                     n1, n2 = map(int, rad2)      # 좌표 확인 필요
+#                 else:
+#                     print('잘못된 좌표입니다.')
+#                     continue
+#
+#                 if n1 ==0 and n2 == 0:          # 디버깅용 해답(삭제필요)
+#                     for ta in range(1,10):      #
+#                         for tb in range(1,10):  #
+#                             bombZero(ta,tb)     #
+#                 else:                           #
+#                     if answ[n1][n2] != '**':
+#                         mat1[n1][n2] = answ[n1][n2]
+#                         if answ[n1][n2] == ' 0':
+#                             bombZero(n1, n2)
+#                     else:
+#                         makeQuiz1(answ)
+#                         print("Game over")
+#                         key1 = 0
+#                         break
+
+
+
 
 def saveMine(mat0):
     wor = ''
     for nf in range(len(mat0)):
         for nnf in range(len(mat0[0])):
-            wor = wor + mat0[nf][nnf] + ',' if nnf < len(mat0[0]) else '\n'
+            wor += mat0[nf][nnf] + (',' if nnf < len(mat0[0])-1 else '\n')
     with open('save_mine.txt', mode='w', encoding='utf-8') as f:
         f.write(wor)
 
@@ -143,6 +229,7 @@ while True:
     while key1==1:
         manual()
         press = input("원하는 메뉴를 입력하세요 : ")
+
         if press == '0':
             sleep(0.5)
             print('세로축, 가로축 순서로 원하는 좌표를 입력하여')
@@ -162,7 +249,6 @@ while True:
             print("게임을 종료합니다.")
             sleep(1)
             key1 = 0
-            break
         elif press == 'r' or press == 'R':
             print('다시 시작합니다')
             sleep(1)
@@ -173,36 +259,40 @@ while True:
 
     mat1 = makeMine()               # 1. 지뢰 배치
     mat1 = makeframe(mat1)          # 2. 액자 추가 + 숫자 입력
-    answ = makeAnswer(mat1)         # 3. 해답지 생성(깊은 복사로 배치가 같은 리스트answ 생성)
-
-
-# 4. 문제지 출력
-    printQuiz(mat1)
-
-
+    answ = makeAnswer(mat1)         # 3. 해답지 생성(깊은 복사로 배치가 같은 리스트 answ 생성)
+    printQuiz(mat1)                 # 4. 문제지 출력
 
 
     while key1==2:
         print()
         makeQuiz1(mat1)
-
+        saveMine(answ)
         # print(f'남은 지뢰: {countMine(answ)}')
         # print(f'남은 땅: {countGround(mat1)}')
 
         if countMine(answ) == countGround(mat1) or countMine(answ) == countMine(mat1):
             print('Game Clear!')
             key1 = 0
-            break
+
         else:
             print(f'지뢰 갯수 : {countMine(answ)}')
-            rad1 = input('q(종료) / r(메뉴로 돌아가기)\n좌표 입력(2번째 줄 8번째 칸 = 2 8) : ')
+            rad1 = input('q(종료) / s(저장 후 메뉴로 돌아가기) / r(메뉴로 가기)\n좌표 입력(2번째 줄 8번째 칸 = 2 8) : ')
             if rad1 == 'q' or rad1 == 'Q':
                 print('게임을 종료합니다.')
                 key1 = 0
-                break
+
+            elif rad1 == 's' or rad1 == 'S':
+                saveMine(answ)
+                print('저장중입니다.')
+                # sleep(1)
+                # print('저장중입니다..')
+                # sleep(1)
+                print('메뉴로 돌아갑니다.')
+                key1 = 1
             elif rad1 == 'r' or rad1 == 'R':
                 print('메뉴로 돌아갑니다.')
                 key1 = 1
+
             else:
                 rad2 = rad1.split()
                 if correct(rad2):
@@ -224,6 +314,6 @@ while True:
                         makeQuiz1(answ)
                         print("Game over")
                         key1 = 0
-                        break
+        saveMine(answ)
     if not key1:
         break
