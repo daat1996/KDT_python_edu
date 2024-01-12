@@ -167,56 +167,6 @@ def manualList(press):
         sleep(0.5)
 
 
-# def theGame():
-#     global key1
-#     while key1==2:
-#         print()
-#         makeQuiz1(mat1)
-#
-#         # print(f'남은 지뢰: {countMine(answ)}')
-#         # print(f'남은 땅: {countGround(mat1)}')
-#
-#         if countMine(answ) == countGround(mat1) or countMine(answ) == countMine(mat1):
-#             print('Game Clear!')
-#             key1 = 0
-#
-#         else:
-#             print(f'지뢰 갯수 : {countMine(answ)}')
-#             rad1 = input('q(종료) / s(저장 후 메뉴로 돌아가기) / r(게임리셋)\n좌표 입력(2번째 줄 8번째 칸 = 2 8) : ')
-#             if rad1 == 'q' or rad1 == 'Q':
-#                 print('게임을 종료합니다.')
-#                 key1 = 0
-#
-#             elif rad1 == 's' or rad1 == 'S':
-#                 saveMine(answ)
-#                 print('저장중입니다.')
-#                 sleep(1)
-#                 print('저장중입니다..')
-#                 sleep(1)
-#                 print('메뉴로 돌아갑니다.')
-#                 key1 = 1
-#             else:
-#                 rad2 = rad1.split()
-#                 if correct(rad2):
-#                     n1, n2 = map(int, rad2)      # 좌표 확인 필요
-#                 else:
-#                     print('잘못된 좌표입니다.')
-#                     continue
-#
-#                 if n1 ==0 and n2 == 0:          # 디버깅용 해답(삭제필요)
-#                     for ta in range(1,10):      #
-#                         for tb in range(1,10):  #
-#                             bombZero(ta,tb)     #
-#                 else:                           #
-#                     if answ[n1][n2] != '**':
-#                         mat1[n1][n2] = answ[n1][n2]
-#                         if answ[n1][n2] == ' 0':
-#                             bombZero(n1, n2)
-#                     else:
-#                         makeQuiz1(answ)
-#                         print("Game over")
-#                         key1 = 0
-#                         break
 
 
 
