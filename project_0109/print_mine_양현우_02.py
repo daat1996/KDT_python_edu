@@ -1,4 +1,4 @@
-from random import randint
+from random import randint, shuffle
 from copy import deepcopy
 from time import sleep
 
@@ -19,13 +19,29 @@ def makeMine():     # 1. 지뢰를 만든다.
     return matrix
 
 
-def makeframe(mineList):       # 2. 액자틀 입력
-    for k in range(9):
+def makeMine2(a=9,b=9,c=10):        # 지뢰만들기 ver.2
+    matrix = []
+    mIne = ['**'] * c + [' 0'] * (a * b - c)
+    shuffle(mIne)
+    for sero in range(a):
+        matseries = []
+        for garo in range(b):
+            matseries.append(mIne.pop())
+        matrix.append(matseries)
+    return matrix
+
+
+
+
+
+
+def makeframe(mineList,a=9,b=9):       # 2. 액자틀 입력
+    for k in range(a):
         mineList[k].insert(0, chr(ord('①')+k))              # 내부 앞, 뒤 틀 입력
         mineList[k].append(chr(ord('①')+k))
     listF = []
-    for j in range(11):                                 # 위 아래 틀 입력
-        if not j or j==10:
+    for j in range(b+2):                                 # 위 아래 틀 입력
+        if not j or j==b+1:
             listF.append(chr(ord('ⓞ')))
         else:
             listF.append(chr(ord('①')+j-1))
@@ -35,13 +51,13 @@ def makeframe(mineList):       # 2. 액자틀 입력
     return mineList
 
 
-def makeAnswer(mat1):           # 3. 해답지 설정
-    answer = deepcopy(mat1)         # 깊은 복사로 해답리스트(answer) 생성 및 리턴
-    for x in range(1, 10):
-        for y in range(1, 10):
-            if mat1[x][y] != '**':
-                answer[x][y] = ' ' + str(mat1[x - 1][y - 1:y + 2].count('**') + mat1[x][y - 1].count('**') +
-                                   mat1[x][y + 1].count('**') + mat1[x + 1][y - 1:y + 2].count('**'))
+def makeAnswer(mat0):           # 3. 해답지 설정
+    answer = deepcopy(mat0)         # 깊은 복사로 해답리스트(answer) 생성 및 리턴
+    for x in range(1, len(mat0)-1):
+        for y in range(1, len(mat0[0])-1):
+            if mat0[x][y] != '**':
+                answer[x][y] = ' ' + str(mat0[x - 1][y - 1:y + 2].count('**') + mat0[x][y - 1].count('**') +
+                                   mat0[x][y + 1].count('**') + mat0[x + 1][y - 1:y + 2].count('**'))
     # print(answer)
     return answer
 
@@ -224,6 +240,7 @@ def loadMine(filename):
 
 
 key1 = 1
+key2 = 1
 filename = 'save_mine.txt'
 while True:
     while key1==1:
@@ -242,6 +259,7 @@ while True:
             print("게임시작!")
             sleep(1)
             key1 = 2
+            key2 = 1
         elif press == '2' or press == '3':
             print("정식판을 구매해주세요")
             print()
@@ -257,7 +275,20 @@ while True:
             print("해당하는 메뉴는 존재하지 않습니다.")
             sleep(0.5)
 
-    mat1 = makeMine()               # 1. 지뢰 배치
+    if key2 == 1:               # 1. 지뢰 배치
+        mat1 = makeMine2()
+    elif key2 == 2:
+        mat1 = makeMine2(12,12,23)
+    elif key2 == 3:
+        mat1 = makeMine()
+        pass
+    elif key2 == 4:
+        mat1 = makeMine()
+        pass
+    else:
+        mat1 = makeMine()
+
+
     mat1 = makeframe(mat1)          # 2. 액자 추가 + 숫자 입력
     answ = makeAnswer(mat1)         # 3. 해답지 생성(깊은 복사로 배치가 같은 리스트 answ 생성)
     printQuiz(mat1)                 # 4. 문제지 출력
